@@ -1,5 +1,7 @@
 'use strict';
-const { Model } = require('sequelize');
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Band extends Model {
     /**
@@ -7,38 +9,19 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate({ MeetGreet, SetTime }) {
-      // meet and greets
-      Band.hasMany(MeetGreet, {
-        foreignKey: "band_id",
-        as: "meet_greets"
-      })
-
-      // set times 
-      Band.hasMany(SetTime, {
-        foreignKey: "band_id",
-        set_times: "set_times"
-      })
+    static associate(models) {
+      // define association here
     }
   }
-  Band.init(
-    {
-      band_id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      name: DataTypes.STRING,
-      genre: DataTypes.TEXT,
-      available_start_time: DataTypes.DATE,
-      end_time: DataTypes.DATE,
-    },
-    {
-      sequelize,
-      modelName: 'Band',
-      tableName: 'bands',
-      timestamps: false,
-    }
-  );
+  Band.init({
+    band_id: DataTypes.INTEGER,
+    name: DataTypes.STRING,
+    genre: DataTypes.TEXT,
+    available_start_time: DataTypes.DATE,
+    end_time: DataTypes.DATE
+  }, {
+    sequelize,
+    modelName: 'Band',
+  });
   return Band;
 };
